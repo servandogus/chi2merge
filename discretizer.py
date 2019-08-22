@@ -129,7 +129,7 @@ class chi2discretizer:
             
             # Save
             self.df_bin_edges_[x.name] = [bin_edges]
-            self.df_n_bins_[x.name] = len(bin_edges)
+            self.df_n_bins_[x.name] = [len(bin_edges)]
             self.n_features_ = self.df_n_bins_.shape[1]
             
     def transform(self, X):
@@ -153,7 +153,7 @@ class chi2discretizer:
                              "received {}.".format(self.n_features_, X.shape[1]))
         for i in range(X.shape[1]):            
             x = X.iloc[:,i]             
-            if len(self.df_n_bins_[i]) > 1:                
+            if len(self.df_n_bins_[x.name]) > 1:                
                 X_discret.iloc[:,i] = applyEdges(self.df_bin_edges_.iloc[0,i], x)
         
         return X_discret
