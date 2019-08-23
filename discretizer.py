@@ -147,7 +147,8 @@ class chi2discretizer:
         """
         check_is_fitted(self, ["df_bin_edges_"])
         
-        X_discret = check_array(X, copy=True, dtype=FLOAT_DTYPES)        
+        check_array(X, dtype=FLOAT_DTYPES)
+        X_discret = X.copy()      
         if X.shape[1] != self.n_features_:
             raise ValueError("Incorrect number of features. Expecting {}, "
                              "received {}.".format(self.n_features_, X.shape[1]))
