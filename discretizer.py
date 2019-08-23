@@ -100,7 +100,7 @@ class chi2discretizer:
         for i in range(X.shape[1]):
             
             print("\n")
-            print("Fitting feature ", i, " / " , X.shape[1])
+            print("Fitting feature ", i, "/" , X.shape[1])
             
             # Inital binarization
             x = X.iloc[:,i]
@@ -148,13 +148,15 @@ class chi2discretizer:
         check_is_fitted(self, ["df_bin_edges_"])
         
         check_array(X, dtype=FLOAT_DTYPES)
-        X_discret = X.copy()      
+        X_discret = X.copy()
         if X.shape[1] != self.n_features_:
             raise ValueError("Incorrect number of features. Expecting {}, "
                              "received {}.".format(self.n_features_, X.shape[1]))
-        for i in range(X.shape[1]):            
+        
+        for i in range(X.shape[1]):  
+            print("Transforming feature ", i, "/", self.n_features_)
             x = X.iloc[:,i]             
-            if self.df_n_bins_.loc[0, x.name] > 1:                
+            if self.df_n_bins_.loc[0, x.name] > 1:
                 X_discret.iloc[:,i] = applyEdges(self.df_bin_edges_.iloc[0,i], x)
         
         return X_discret
